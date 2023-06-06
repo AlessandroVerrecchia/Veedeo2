@@ -3,50 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
-    android:background="@color/cardview_light_background"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="220dp"
     android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginEnd="12dp"
     android:layout_marginBottom="8dp"
-    android:layout_marginTop="8dp"
+    android:background="@color/cardview_light_background"
     android:elevation="12dp">
+
 
     <ImageView
         android:id="@+id/videoThumbnail"
         android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:scaleType="centerCrop"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/video_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/video_icon" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/baseline_play_circle_outline_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/videoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
         android:maxLines="2"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/videoDuration"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/videoThumbnail"
         tools:text="Hulksmash monster strong real true !" />
 
     <TextView
         android:id="@+id/videoDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/black"
-        android:paddingBottom="8dp"
-        android:textSize="14sp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoTitle"
         tools:text="40:20" />
 
 

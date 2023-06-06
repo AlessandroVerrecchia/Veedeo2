@@ -31,7 +31,7 @@ class VideoAdapter(private var onVideoClickListener: IVideoClickListener) :
         val video = videos[position]
         holder.apply {
             container.setOnClickListener {
-                onVideoClickListener.onClick(video)
+                onVideoClickListener.onVideoClick(video)
             }
             title.text = "${video.id}"
             duration.text = "${video.duration} sec"

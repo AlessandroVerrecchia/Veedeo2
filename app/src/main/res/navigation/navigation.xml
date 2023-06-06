@@ -8,19 +8,25 @@
     <fragment
         android:id="@+id/popularVideoFragment"
         android:name="com.example.veedeo2.popular.PopularVideosFragment"
-        tools:layout="@layout/fragment_popular_videos" >
+        tools:layout="@layout/fragment_popular_videos">
         <action
             android:id="@+id/action_popularVideoFragment_to_videoPlayerFragment"
-            app:destination="@id/videoPlayerFragment" />
+            app:destination="@id/videoPlayerFragment"
+            app:popUpTo="@id/popularVideoFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/videoPlayerFragment"
         android:name="com.example.veedoplayer.VeedeoPlayerFragment"
-        tools:layout="@layout/fragment_video" >
+        tools:layout="@layout/fragment_video">
         <argument
             android:name="videoUri"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/searchVideoFragment"
+        android:name="com.example.veedeo2.search.SearchVideosFragment"
+        tools:layout="@layout/fragment_search_videos" />
 
 </navigation>

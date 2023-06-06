@@ -1,13 +1,13 @@
 package com.example.veedeo2.popular
 
 import android.content.pm.ActivityInfo
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class PopularVideosFragment() : Fragment(), IVideoClickListener {
 
     private val popularVideosViewModel by viewModel<PopularVideosViewModel>()
-    private lateinit var videoAdapter: VideoAdapter
+    private  var videoAdapter: VideoAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,28 +34,34 @@ class PopularVideosFragment() : Fragment(), IVideoClickListener {
         super.onViewCreated(view, savedInstanceState)
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setupRecyclerView()
+
         observeFetchVideoResult()
         observeError()
+
         fetchPopularVideos()
     }
 
-    private fun setupRecyclerView(){
-        popularVideosRecyclerView.layoutManager = LinearLayoutManager(context)
+    private fun setupRecyclerView() {
         videoAdapter = VideoAdapter(this)
-        popularVideosRecyclerView.adapter = videoAdapter
+        popularVideosRecyclerView.apply {
+            this.layoutManager = LinearLayoutManager(context)
+            this.adapter = videoAdapter
+        }
     }
 
-    private fun fetchPopularVideos(){
+    private fun fetchPopularVideos() {
         popularVideosViewModel.fetchPopularVideos()
     }
 
-    private fun observeFetchVideoResult(){
+    private fun observeFetchVideoResult() {
         popularVideosViewModel.videosLiveData.observe(viewLifecycleOwner, Observer { videos ->
-            if (videos.isEmpty()) {
-                Toast.makeText(context, "No popular videos", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                videoAdapter.updateList(videos)
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                if (videos.isEmpty()) {
+                    Toast.makeText(context, "No popular videos", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    videoAdapter?.updateList(videos)
+                }
             }
         })
     }
@@ -66,10 +72,12 @@ class PopularVideosFragment() : Fragment(), IVideoClickListener {
         })
     }
 
-    override fun onClick(video: VideoDTO) {
+    override fun onVideoClick(video: VideoDTO) {
         val action =
             PopularVideosFragmentDirections.actionPopularVideoFragmentToVideoPlayerFragment(video.videoFiles.first().link)
         view?.findNavController()?.navigate(action)
+
     }
+
 
 }

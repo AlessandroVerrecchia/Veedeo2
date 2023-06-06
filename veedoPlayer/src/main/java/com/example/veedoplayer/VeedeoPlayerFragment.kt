@@ -43,9 +43,6 @@ class VeedeoPlayerFragment : Fragment() {
         veedeoPlayer.release()
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        veedeoPlayer.release()
-    }
+
 
 }
